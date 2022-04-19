@@ -1,0 +1,24 @@
+{
+"name": "Car",
+"make": "Volvo",
+
+"seats": [{
+"id": 1,
+"material": "leather", 
+"colour": "black"
+}, {
+"id": 2,
+"material": "leather", 
+"colour": "black"
+}, {
+"id": 3,
+"material": "leather", 
+"colour": "black"
+}, {
+"id": 4,
+"material": "leather", 
+"colour": "black"
+}]
+
+"engine": 2.0
+}
