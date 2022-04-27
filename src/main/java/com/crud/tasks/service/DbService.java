@@ -29,7 +29,11 @@ public class DbService {
         return repository.save(task);
     }
 
-    public void deleteTask(Long taskId) {
-        repository.deleteById(taskId);
+    public void deleteTask(Long taskId) throws TaskNotFoundException {
+       if (repository.existsById(taskId)) {
+           repository.deleteById(taskId);
+           return;
+       }
+        throw new TaskNotFoundException();
     }
 }

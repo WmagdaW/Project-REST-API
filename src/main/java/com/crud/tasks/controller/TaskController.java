@@ -14,13 +14,14 @@ import org.springframework.web.servlet.function.EntityResponse;
 import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/v1/task")
 public class TaskController {
 
     private final DbService service;
     private final TaskMapper taskMapper;
-    private String taskId;
+
 
     @Autowired
     public TaskController(DbService service, TaskMapper taskMapper) {
