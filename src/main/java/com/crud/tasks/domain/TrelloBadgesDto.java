@@ -11,7 +11,7 @@ import lombok.Data;
         @JsonProperty("votes")
         private int votes;
 
-        @JsonProperty("attachments")
+        @JsonProperty("attachmentsByType")
         private TrelloAttachmentsByTypeDto attachments;
 
     }
