@@ -14,5 +14,6 @@ public class Mail {
     private String message;
     private String toCc;
 
+
 }
 

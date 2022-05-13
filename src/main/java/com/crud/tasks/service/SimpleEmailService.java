@@ -30,6 +30,7 @@ public class SimpleEmailService implements mailMessage {
     private SimpleMailMessage createMailMessage(final Mail mail) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(mail.getMailTo());
+        mailMessage.setFrom("wmagdaw@gmail.com");
         mailMessage.setSubject(mail.getSubject());
         mailMessage.setText(mail.getMessage());
         if (mail.getToCc()!=null) {
