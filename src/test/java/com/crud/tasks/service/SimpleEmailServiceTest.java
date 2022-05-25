@@ -27,6 +27,7 @@ class SimpleEmailServiceTest {
 
         //Given
         Mail mail = Mail.builder()
+                .mailFrom("test1@test.com")
                 .mailTo("test@test.com")
                 .subject("Test")
                 .message("Test Message")
@@ -34,6 +35,7 @@ class SimpleEmailServiceTest {
                 .build();
 
         SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setFrom(mail.getMailFrom());
         mailMessage.setTo(mail.getMailTo());
         mailMessage.setSubject(mail.getSubject());
         mailMessage.setText(mail.getMessage());

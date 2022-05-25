@@ -14,5 +14,12 @@ import lombok.Data;
         @JsonProperty("attachmentsByType")
         private TrelloAttachmentsByTypeDto attachments;
 
+        public TrelloBadgesDto(int votes, TrelloAttachmentsByTypeDto attachments) {
+            this.votes = votes;
+            this.attachments = attachments;
+        }
+
+        public TrelloBadgesDto() {
+        }
     }
 
