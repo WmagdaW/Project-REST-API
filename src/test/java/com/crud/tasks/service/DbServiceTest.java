@@ -2,6 +2,7 @@ package com.crud.tasks.service;
 
 import com.crud.tasks.domain.Task;
 import com.crud.tasks.repository.TaskRepository;
+
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -13,6 +14,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -99,20 +101,14 @@ public class DbServiceTest {
         assertEquals(task1.getContent(), testTask.getContent());
     }
 
-//    @Test
-//    public void deleteTaskTest() {
-//        //Given
-//        Task task1 = new Task(1L, "Task1", "TaskOne");
-//        Task task2 = new Task(2L, "Task2", "TaskTwo");
-//        List<Task> list = new ArrayList<>();
-//        list.add(task1);
-//        list.add(task2);
-//
-//        //When
-//        dbService.deleteTask(1L);
-//
-//        //Then
-//        assertEquals(1, list.size());
-//        assertEquals("Task2", list.get(0).getTitle());
-//    }
+    @Test
+    public void deleteTaskTest() {
+        //Given
+
+        //When
+        dbService.deleteTask(1L);
+
+        //Then
+        then(repository).should().deleteById(1L);
+    }
 }
