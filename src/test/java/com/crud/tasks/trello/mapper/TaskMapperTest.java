@@ -46,7 +46,7 @@ public class TaskMapperTest {
 
     @Test
     public void mapToTaskDtoListTest() {
-        //Given
+       //Given
         Task task1 = new Task(1L, "Task1", "TaskOne");
         Task task2 = new Task(2L, "Task2", "TaskTwo");
         List<Task> taskList = new ArrayList<>();
