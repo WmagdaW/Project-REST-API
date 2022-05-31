@@ -6,6 +6,8 @@
 //import org.junit.jupiter.api.Test;
 //import org.mockito.InjectMocks;
 //import org.mockito.Mock;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.boot.test.context.SpringBootTest;
 //
 //import java.util.ArrayList;
 //import java.util.List;
@@ -14,9 +16,10 @@
 //import static org.junit.jupiter.api.Assertions.assertNull;
 //import static org.mockito.Mockito.when;
 //
+//@SpringBootTest
 //public class DbServiceTest {
 //
-//    @InjectMocks
+//    @Autowired
 //    private DbService dbService;
 //
 //    @Mock
@@ -25,6 +28,7 @@
 //    @Test
 //    public void getAllTasksTest() {
 //        //Given
+//
 //        Task task1 = new Task(1L, "Task1", "TaskOne");
 //        Task task2 = new Task(2L, "Task2", "TaskTwo");
 //        List<Task> list = new ArrayList<>();
@@ -56,11 +60,11 @@
 //    }
 //
 //    @Test
-//    public void getTaskTest() {
+//    public void getTaskTest() throws TaskNotFoundException {
 //        //Given
 //        Task task1 = new Task(1L, "Task1", "TaskOne");
 //
-//        when(repository.findById(1L)).thenReturn(task1);
+//        when(repository.findById(1L)).thenReturn(java.util.Optional.of(task1));
 //
 //        //When
 //        Task testTask = dbService.getTask(1L);
@@ -70,7 +74,7 @@
 //    }
 //
 //    @Test
-//    public void getTaskThatDoesNotExistTest() {
+//    public void getTaskThatDoesNotExistTest() throws TaskNotFoundException {
 //        //Given
 //        when(repository.findById(1L)).thenReturn(null);
 //
@@ -97,7 +101,7 @@
 //    }
 //
 //    @Test
-//    public void deleteTaskTask() {
+//    public void deleteTaskTest() throws TaskNotFoundException {
 //        //Given
 //        Task task1 = new Task(1L, "Task1", "TaskOne");
 //        Task task2 = new Task(2L, "Task2", "TaskTwo");
@@ -107,6 +111,7 @@
 //
 //        //When
 //        List<Task> testList = list;
+//        dbService.deleteTask(2L);
 //        try {
 //            dbService.deleteTask(2L);
 //        } catch (TaskNotFoundException e) {
