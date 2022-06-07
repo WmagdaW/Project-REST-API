@@ -46,6 +46,6 @@ public class TrelloValidatorTest {
 //        trelloValidator.validateCard(testCard);
 //        //Then
 //        assertThat("Someone is testing my application!", trelloValidator.validateCard(testCard));
-//
+ // then(trelloValidator).should().validateCard(testCard);
 //    }
 }

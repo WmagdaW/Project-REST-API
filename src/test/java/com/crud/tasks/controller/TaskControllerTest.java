@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.anyList;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 
 @SpringJUnitWebConfig
@@ -31,8 +31,6 @@ import static org.mockito.Mockito.when;
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
-    private TaskController taskController;
     @MockBean
     private TaskMapper taskMapper;
     @MockBean
@@ -54,7 +52,7 @@ import static org.mockito.Mockito.when;
                             .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(MockMvcResultMatchers.status().is(200)) // or isOk()
                     .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(1)))
-                    .andExpect(MockMvcResultMatchers.jsonPath("$[0].id", Matchers.is(1L)))
+                    .andExpect(MockMvcResultMatchers.jsonPath("$[0].id", Matchers.is(1)))
                     .andExpect(MockMvcResultMatchers.jsonPath("$[0].title", Matchers.is("Task1")))
                     .andExpect(MockMvcResultMatchers.jsonPath("$[0].content", Matchers.is("TaskOne")));
         }
@@ -84,14 +82,16 @@ import static org.mockito.Mockito.when;
         // Given
         Task task = new Task(1L, "Task1", "TaskOne");
 
-        when(service.getTask(1L)).thenReturn(null);
+        when(service.getTask(1L)).thenReturn(java.util.Optional.of(task));
 
         //When & Then
         mockMvc
                 .perform(MockMvcRequestBuilders
-                        .delete("/v1/task/deleteTask/1")
+                        .delete("/v1/task/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().is(200));
+        verify(service, times(1)).deleteTask(1L);
+
     }
 
     @Test
@@ -104,17 +104,22 @@ import static org.mockito.Mockito.when;
         when(service.saveTask(task)).thenReturn(task);
         when(taskMapper.mapToTaskDto(task)).thenReturn(taskDto);
 
+        Gson gson = new Gson();
+        String jsonContent = gson.toJson(taskDto);
+
         //When & Then
         mockMvc
                 .perform(MockMvcRequestBuilders
                         .put("/v1/task/updateTask")
+                        .characterEncoding("UTF-8")
+                        .content(jsonContent)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().is(200)) // or isOk()
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(1)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.title", Matchers.is("Task1")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.content", Matchers.is("TaskOne")));
-
     }
+
     @Test
     public void shouldCreateTask() throws Exception {
         // Given
@@ -134,10 +139,8 @@ import static org.mockito.Mockito.when;
                         .contentType(MediaType.APPLICATION_JSON)
                         .characterEncoding("UTF-8")
                 .content(jsonContent))
-                .andExpect(MockMvcResultMatchers.status().is(200)) // or isOk()
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(1)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.title", Matchers.is("Task1")))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.data.content", Matchers.is("TaskOne")));
+                .andExpect(MockMvcResultMatchers.status().is(200));// or isOk()
+
     }
 
 }

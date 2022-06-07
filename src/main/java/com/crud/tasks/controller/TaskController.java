@@ -35,12 +35,12 @@ public class TaskController {
         return ResponseEntity.ok(taskMapper.mapToTaskDtoList(tasks));
     }
 
-    @GetMapping(value = "{taskId}")
+    @GetMapping(value = "{id}")
     public ResponseEntity<TaskDto> getTask(@PathVariable Long id) throws TaskNotFoundException {
         return ResponseEntity.ok(taskMapper.mapToTaskDto(service.getTask(id).orElseThrow(TaskNotFoundException::new)));
     }
 
-    @DeleteMapping(value = "deleteTask/{taskId}")
+    @DeleteMapping(value = "{id}")
     public ResponseEntity <Void> deleteTask(@PathVariable Long id) throws TaskNotFoundException {
         if (service.getTask(id).isPresent())
             service.deleteTask(id);
